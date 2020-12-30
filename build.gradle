@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.1.4.RELEASE'
+}
+
+group 'payment-system'
+version '1.0.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    // Test
+    testCompile group: 'junit', name: 'junit', version: '4.*'
+
+    // Yaml
+    compile group: 'net.rakugakibox.util', name: 'yaml-resource-bundle', version: '1.1'
+
+    // Apache Commons
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.3'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+
+    // Model Mapper
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.7'
+
+    // H2 Database
+    compile group: 'com.h2database', name: 'h2', version: '1.4.199'
+
+    // Lombok
+    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+    compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
+
+    // Spring boot
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.1.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.1.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '2.1.4.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-integration', version: '2.1.4.RELEASE'
+
+    // Spring Integration JPA
+    compile group: 'org.springframework.integration', name: 'spring-integration-jdbc', version: '5.1.6.RELEASE'
+
+    // Json
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
+}
