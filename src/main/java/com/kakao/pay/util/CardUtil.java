@@ -1,6 +1,6 @@
-package com.kakao.pay.card;
+package com.kakao.pay.util;
 
-import com.kakao.pay.card.model.CardInfo;
+import com.kakao.pay.model.card.CardInfo;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 @UtilityClass
-public class CardInfoMapper {
+public class CardUtil {
     private static final String DELIMITER = "|";
 
     public static String serialize(CardInfo cardInfo) {

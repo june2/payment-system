@@ -1,7 +1,7 @@
 package com.kakao.pay.response.payment;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.kakao.pay.card.model.MaskedCardInfo;
+import com.kakao.pay.model.card.MaskedCardInfo;
 import com.kakao.pay.constant.PaymentType;
 import lombok.Builder;
 import lombok.Data;

@@ -15,7 +15,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class SendPayload {
+public class Payload {
     @Id
     @Column(length = Constants.ID_SIZE)
     private String id;

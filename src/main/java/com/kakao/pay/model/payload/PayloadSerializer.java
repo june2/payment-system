@@ -1,4 +1,4 @@
-package com.kakao.pay.payload;
+package com.kakao.pay.model.payload;
 
 import com.kakao.pay.constant.Constants;
 import lombok.experimental.UtilityClass;

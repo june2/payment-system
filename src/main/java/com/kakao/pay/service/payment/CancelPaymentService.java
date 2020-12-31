@@ -1,16 +1,16 @@
 package com.kakao.pay.service.payment;
 
-import com.kakao.pay.card.model.CardInfo;
+import com.kakao.pay.model.card.CardInfo;
 import com.kakao.pay.entity.payment.CancelPayment;
 import com.kakao.pay.exception.ApiException;
-import com.kakao.pay.payload.PayloadSerializer;
+import com.kakao.pay.model.payload.PayloadSerializer;
 import com.kakao.pay.repository.PaymentRepository;
 import com.kakao.pay.response.payment.CancelPaymentResponse;
 import com.kakao.pay.constant.ApiError;
 import com.kakao.pay.constant.Constants;
 import com.kakao.pay.constant.PaymentType;
 import com.kakao.pay.entity.payment.ApplyPayment;
-import com.kakao.pay.payload.Payload;
+import com.kakao.pay.model.payload.Payload;
 import com.kakao.pay.request.payment.CancelPaymentRequest;
 import com.kakao.pay.service.CardService;
 import com.kakao.pay.service.SendService;

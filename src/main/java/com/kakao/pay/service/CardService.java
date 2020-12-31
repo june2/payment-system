@@ -1,10 +1,10 @@
 package com.kakao.pay.service;
 
-import com.kakao.pay.card.CardInfoMapper;
-import com.kakao.pay.card.model.CardInfo;
+import com.kakao.pay.util.CardUtil;
 import com.kakao.pay.constant.ApiError;
+import com.kakao.pay.util.CrtyptoUtil;
 import com.kakao.pay.exception.ApiException;
-import com.kakao.pay.crypto.CipherProvider;
+import com.kakao.pay.model.card.CardInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -23,16 +23,16 @@ public class CardService {
     @Value("${card.cipher.separator}")
     private String CIPHER_SEPARATOR;
 
-    private CipherProvider cipherProvider;
+    private CrtyptoUtil crtyptoUtil;
 
     @PostConstruct
-    void init() throws NoSuchAlgorithmException, InvalidKeySpecException {
-        cipherProvider = new CipherProvider(CIPHER_TYPE, CIPHER_KEY);
+    public void init() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        crtyptoUtil = new CrtyptoUtil(CIPHER_TYPE, CIPHER_KEY);
     }
 
     public String encrypt(CardInfo cardInfo) throws ApiException {
         try {
-            return cipherProvider.encrypt(CardInfoMapper.serialize(cardInfo));
+            return crtyptoUtil.encrypt(CardUtil.serialize(cardInfo));
         } catch (Exception e) {
             throw new ApiException(ApiError.ERROR, e.getMessage());
         }
@@ -40,7 +40,7 @@ public class CardService {
 
     public CardInfo decrypt(String encryptedCardInfo) throws ApiException {
         try {
-            return CardInfoMapper.deserialize(cipherProvider.decrypt(encryptedCardInfo));
+            return CardUtil.deserialize(crtyptoUtil.decrypt(encryptedCardInfo));
         } catch (Exception e) {
             throw new ApiException(ApiError.ERROR, e.getMessage());
         }

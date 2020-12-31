@@ -1,12 +1,13 @@
-package com.kakao.pay.card.model;
+package com.kakao.pay.model.card;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class CardInfo {
     private String number;
 

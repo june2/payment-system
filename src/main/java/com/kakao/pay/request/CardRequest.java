@@ -1,6 +1,6 @@
 package com.kakao.pay.request;
 
-import com.kakao.pay.card.model.CardInfo;
+import com.kakao.pay.model.card.CardInfo;
 import com.kakao.pay.validator.DateFormat;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

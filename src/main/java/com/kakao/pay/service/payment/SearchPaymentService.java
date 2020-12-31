@@ -1,7 +1,7 @@
 package com.kakao.pay.service.payment;
 
-import com.kakao.pay.card.model.CardInfo;
-import com.kakao.pay.card.model.MaskedCardInfo;
+import com.kakao.pay.model.card.CardInfo;
+import com.kakao.pay.model.card.MaskedCardInfo;
 import com.kakao.pay.entity.payment.Payment;
 import com.kakao.pay.exception.ApiException;
 import com.kakao.pay.repository.PaymentRepository;

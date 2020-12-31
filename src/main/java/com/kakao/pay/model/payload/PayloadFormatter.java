@@ -1,4 +1,4 @@
-package com.kakao.pay.payload;
+package com.kakao.pay.model.payload;
 
 import org.apache.commons.lang3.StringUtils;
 

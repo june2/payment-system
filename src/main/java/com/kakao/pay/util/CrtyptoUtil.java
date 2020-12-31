@@ -1,4 +1,4 @@
-package com.kakao.pay.crypto;
+package com.kakao.pay.util;
 
 import lombok.Getter;
 
@@ -10,14 +10,14 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Base64;
 import java.util.Optional;
 
-public class CipherProvider {
+public class CrtyptoUtil {
     @Getter
     private String type;
 
     @Getter
     private SecretKey secretKey;
 
-    public CipherProvider(String type, String key) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    public CrtyptoUtil(String type, String key) throws NoSuchAlgorithmException, InvalidKeySpecException {
         this.type = type;
         this.secretKey = SecretKeyFactory
                 .getInstance(type)

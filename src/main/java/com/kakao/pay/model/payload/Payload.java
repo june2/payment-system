@@ -1,4 +1,4 @@
-package com.kakao.pay.payload;
+package com.kakao.pay.model.payload;
 
 import com.kakao.pay.constant.PaymentType;
 import lombok.Builder;

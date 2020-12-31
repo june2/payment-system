@@ -1,6 +1,7 @@
-package com.kakao.pay.card.model;
+package com.kakao.pay.model.card;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kakao.pay.model.card.CardInfo;
 import org.apache.commons.lang3.StringUtils;
 
 public class MaskedCardInfo extends CardInfo {
