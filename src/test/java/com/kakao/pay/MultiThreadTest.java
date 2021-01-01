@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class MultiThreadTest extends CommonTestCase {
     @Test
-    public void 같은카드로_동시에_결제_테스트() {
+    public void 같은카드로_동시에_결제() {
         ApplyPaymentRequest applyPaymentRequest = ApplyPaymentRequest
                 .builder()
                 .card(defaultCardRequest())
@@ -50,7 +50,7 @@ public class MultiThreadTest extends CommonTestCase {
     }
 
     @Test
-    public void 동일거래로_동시에_거래취소_테스트() throws Throwable {
+    public void 동일거래로_동시에_거래취소() throws Throwable {
         ApplyPaymentResponse paymentResponse = (ApplyPaymentResponse) doApply(
                 new ApplyPaymentRequest(defaultCardRequest(), 0, 11000L, 1000L),
                 status().isOk()

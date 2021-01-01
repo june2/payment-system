@@ -1,6 +1,7 @@
 package com.kakao.pay.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kakao.pay.constant.ApiError;
 import com.kakao.pay.request.CardRequest;
 import com.kakao.pay.request.payment.ApplyPaymentRequest;
 import com.kakao.pay.request.payment.CancelPaymentRequest;
@@ -9,6 +10,7 @@ import com.kakao.pay.response.ErrorResponse;
 import com.kakao.pay.response.payment.ApplyPaymentResponse;
 import com.kakao.pay.response.payment.CancelPaymentResponse;
 import com.kakao.pay.response.payment.SearchPaymentResponse;
+import junit.framework.TestCase;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.validator.internal.metadata.descriptor.ConstraintDescriptorImpl;
@@ -33,8 +35,11 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Ignore
 @RunWith(SpringRunner.class)
@@ -61,6 +66,34 @@ public class CommonTestCase {
 
     protected SearchPaymentRequest defaultSearchRequest() {
         return new SearchPaymentRequest("wyFzgSLlDBUPKglu1umh");
+    }
+
+    protected void assertSearchSuccess(SearchPaymentRequest request, Long price, Long vat) throws Throwable {
+        SearchPaymentResponse response = (SearchPaymentResponse) doSearch(
+                request,
+                status().isOk()
+        );
+
+        assertEquals(response.getPrice(), price);
+        assertEquals(response.getVat(), vat);
+    }
+
+    protected void assertCancelSuccess(CancelPaymentRequest request) throws Throwable {
+        assertNotNull(
+                doCancel(
+                        request,
+                        status().isOk()
+                )
+        );
+    }
+
+    protected void assertCancelFailed(CancelPaymentRequest request, ApiError expectedCode) throws Throwable {
+        ErrorResponse result = (ErrorResponse) doCancel(
+                request,
+                status().is4xxClientError()
+        );
+
+        TestCase.assertSame(expectedCode, result.getApiError());
     }
 
     protected <T> void assertConstraint(T object, Class<? extends Annotation> clazz) {

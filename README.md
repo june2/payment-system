@@ -35,7 +35,7 @@ $ ./gradlew bootRun
   - 관리번호로 데이터 조회시에는 결제 혹은 결제취소 데이터 1건만 조회.
 
 ### ERD
-![image](https://user-images.githubusercontent.com/5827617/103411977-6543b800-4bb6-11eb-928b-6cafbec4f12b.png)
+![image](https://user-images.githubusercontent.com/5827617/103437829-8ddbb880-4c6f-11eb-8cec-caf49481dd0d.png)
 
 ## API SPEC
 
@@ -135,4 +135,25 @@ VAT_GREATER_THAN_PRICE(07, "VAT가 금액보다 더 큽니다.");
 - 암/복호화 방식 : DESede
 - 카드 정보 구분자 처리 : ex. encrypt(카드정보|유효기간|cvc)
 - `utill\CardUtilTest.java` : 카드사 정보 암/복호화 테스트
+
+--- 
+
+## 테스트 case 작성
+
+### unit 테스트
+- `request/**`
+- `PaymentTest.java`
+- `SearchTest.java`
+
+### 시나리오(부분취소) 테스트
+- `Scenario1Test.java` 
+- `Scenario2Test.java` 
+- `Scenario3Test.java` 
+
+### Multi Thread 테스트
+- 제약조건
+ - 결제 : 하나의 카드번호로 동시에 결제를 할 수 없습니다.
+ - 전체취소 : 결제 한 건에 대한 전체취소를 동시에 할 수 없습니다.
+ - 부분취소 : 결제 한 건에 대한 부분취소를 동시에 할 수 없습니다.
+- `MultiThreadTest.java` 
 

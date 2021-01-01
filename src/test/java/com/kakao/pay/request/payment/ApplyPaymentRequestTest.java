@@ -12,7 +12,7 @@ public class ApplyPaymentRequestTest extends CommonTestCase {
     @Test
     public void 카드_정보_누락() {
         ApplyPaymentRequest request = defaultApplyRequest();
-//        request.setCard(null);
+        request.setCard(null);
         assertConstraint(request, NotNull.class);
     }
 

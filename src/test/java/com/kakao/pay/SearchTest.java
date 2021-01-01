@@ -11,8 +11,9 @@ import static junit.framework.TestCase.assertEquals;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class SearchTest extends CommonTestCase {
+
     @Test
-    public void 조회_테스트() throws Throwable {
+    public void 조회() throws Throwable {
         ApplyPaymentResponse paymentResponse = (ApplyPaymentResponse) doApply(
                 new ApplyPaymentRequest(defaultCardRequest(), 0, 11000L, 1000L),
                 status().isOk()
