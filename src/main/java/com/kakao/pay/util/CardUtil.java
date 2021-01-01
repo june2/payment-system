@@ -1,6 +1,7 @@
 package com.kakao.pay.util;
 
 import com.kakao.pay.model.card.CardInfo;
+import com.kakao.pay.request.payment.ApplyPaymentRequest;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 
@@ -33,5 +34,15 @@ public class CardUtil {
                     return cardInfo;
                 })
                 .get();
+    }
+
+    public static  Long getVat(ApplyPaymentRequest request) {
+        if (request.getPrice() != null) {
+            return Optional
+                    .ofNullable(request.getVat())
+                    .orElse(request.getDefaultVat());
+        } else {
+            return request.getVat();
+        }
     }
 }

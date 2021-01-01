@@ -20,10 +20,9 @@ public class PayloadSerializer {
                     return value;
                 })
                 .get();
-
+        
         for (Field field : FieldUtils.getAllFields(payload.getClass())) {
-            Optional
-                    .ofNullable(field.getAnnotation(PayloadField.class))
+            Optional.ofNullable(field.getAnnotation(PayloadField.class))
                     .ifPresent(payloadField -> {
                         try {
                             int start = payloadField.start();
@@ -31,10 +30,7 @@ public class PayloadSerializer {
 
                             String value = payloadField
                                     .formatter()
-                                    .format(
-                                            FieldUtils.readField(field, payload, true),
-                                            payloadField.length()
-                                    );
+                                    .format(FieldUtils.readField(field, payload, true), payloadField.length());
 
                             bodyBuilder.replace(start, end, value);
                         } catch (IllegalAccessException e) {

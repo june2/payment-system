@@ -13,6 +13,7 @@ import com.kakao.pay.request.CardRequest;
 import com.kakao.pay.request.payment.ApplyPaymentRequest;
 import com.kakao.pay.service.CardService;
 import com.kakao.pay.service.SendService;
+import com.kakao.pay.util.CardUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,7 +56,7 @@ public class ApplyPaymentService {
         try {
             ApplyPayment applyPayment = modelMapper.map(request, ApplyPayment.class);
             applyPayment.setId(randomId.call());
-            applyPayment.setVat(getActualVat(request));
+            applyPayment.setVat(CardUtil.getVat(request));
             applyPayment.setEncryptedCardInfo(encryptedCardInfo);
             applyPayment = applyPaymentRepository.save(applyPayment);
 
@@ -84,16 +85,6 @@ public class ApplyPaymentService {
             throw new ApiException(ApiError.ERROR, e.getLocalizedMessage());
         } finally {
             lock.unlock();
-        }
-    }
-
-    private Long getActualVat(ApplyPaymentRequest request) {
-        if (request.getPrice() != null) {
-            return Optional
-                    .ofNullable(request.getVat())
-                    .orElse(request.getDefaultVat());
-        } else {
-            return request.getVat();
         }
     }
 

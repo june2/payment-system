@@ -51,6 +51,18 @@ public class CommonTestCase {
         return new CardRequest("1234567890", "0120", "123");
     }
 
+    protected ApplyPaymentRequest defaultApplyRequest() {
+        return new ApplyPaymentRequest(defaultCardRequest(), 0, 11000L, 1000L);
+    }
+
+    protected CancelPaymentRequest defaultCancelRequest() {
+        return new CancelPaymentRequest("wyFzgSLlDBUPKglu1umh", 11000L, 1000L);
+    }
+
+    protected SearchPaymentRequest defaultSearchRequest() {
+        return new SearchPaymentRequest("wyFzgSLlDBUPKglu1umh");
+    }
+
     protected <T> void assertConstraint(T object, Class<? extends Annotation> clazz) {
         Collection<ConstraintViolation<T>> violations = Validation
                 .buildDefaultValidatorFactory()
