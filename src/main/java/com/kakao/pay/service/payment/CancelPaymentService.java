@@ -14,6 +14,7 @@ import com.kakao.pay.model.payload.Payload;
 import com.kakao.pay.request.payment.CancelPaymentRequest;
 import com.kakao.pay.service.CardService;
 import com.kakao.pay.service.SendService;
+import com.kakao.pay.util.LockerUtil;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,7 +34,7 @@ public class CancelPaymentService {
     private Callable<String> randomId;
 
     @Autowired
-    private LockRegistry lockRegistry;
+    private LockerUtil lockerUtil;
 
     @Autowired
     private CardService cardService;
@@ -46,7 +47,10 @@ public class CancelPaymentService {
 
     @Transactional
     public CancelPaymentResponse doWork(CancelPaymentRequest request) throws ApiException {
-        Lock lock = lockPayment(request);
+
+        if (!lockerUtil.lock(request.getPaymentId()).tryLock()) {
+            throw new ApiException(ApiError.PAYMENT_LOCKED);
+        }
 
         ApplyPayment applyPayment = applyPaymentRepository
                 .findById(request.getPaymentId())
@@ -89,18 +93,7 @@ public class CancelPaymentService {
         } catch (Exception e) {
             throw new ApiException(ApiError.ERROR, e.getLocalizedMessage());
         } finally {
-            lock.unlock();
-        }
-    }
-
-    private Lock lockPayment(CancelPaymentRequest request) throws ApiException {
-        String key = request.getPaymentId();
-        Lock lock = lockRegistry.obtain(key);
-
-        if (lock.tryLock()) {
-            return lock;
-        } else {
-            throw new ApiException(ApiError.PAYMENT_LOCKED);
+            lockerUtil.unlock();
         }
     }
 

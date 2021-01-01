@@ -31,6 +31,10 @@ dependencies {
     // H2 Database
     compile group: 'com.h2database', name: 'h2', version: '1.4.199'
 
+    // redis
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.4.RELEASE'
+    compile group: 'redis.clients', name: 'jedis', version: '2.9.0'
+
     // Lombok
     annotationProcessor group: 'org.projectlombok', name: 'lombok', version: lombokVersion
     compile group: 'org.projectlombok', name: 'lombok', version: lombokVersion
@@ -43,6 +47,7 @@ dependencies {
 
     // Spring Integration JPA
     compile group: 'org.springframework.integration', name: 'spring-integration-jdbc', version: '5.1.6.RELEASE'
+    compile group: 'org.springframework.integration', name: 'spring-integration-redis', version: '5.1.1.RELEASE'
 
     // Json
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jacksonVersion

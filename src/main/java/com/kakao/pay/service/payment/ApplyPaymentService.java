@@ -2,6 +2,7 @@ package com.kakao.pay.service.payment;
 
 import com.kakao.pay.exception.ApiException;
 import com.kakao.pay.model.payload.PayloadSerializer;
+import com.kakao.pay.util.LockerUtil;
 import com.kakao.pay.repository.PaymentRepository;
 import com.kakao.pay.response.payment.ApplyPaymentResponse;
 import com.kakao.pay.constant.ApiError;
@@ -17,14 +18,11 @@ import com.kakao.pay.util.CardUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.integration.support.locks.LockRegistry;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Optional;
 import java.util.concurrent.Callable;
-import java.util.concurrent.locks.Lock;
 
 @Service
 public class ApplyPaymentService {
@@ -36,7 +34,7 @@ public class ApplyPaymentService {
     private ModelMapper modelMapper;
 
     @Autowired
-    private LockRegistry lockRegistry;
+    private LockerUtil lockerUtil;
 
     @Autowired
     private CardService cardService;
@@ -51,7 +49,9 @@ public class ApplyPaymentService {
     public ApplyPaymentResponse doWork(ApplyPaymentRequest request) throws ApiException {
         String encryptedCardInfo = cardService.encrypt(request.getCard());
 
-        Lock lock = lockCardInfo(encryptedCardInfo);
+        if (!lockerUtil.lock(encryptedCardInfo).tryLock()) {
+            throw new ApiException(ApiError.CARD_LOCKED);
+        }
 
         try {
             ApplyPayment applyPayment = modelMapper.map(request, ApplyPayment.class);
@@ -84,17 +84,7 @@ public class ApplyPaymentService {
         } catch (Exception e) {
             throw new ApiException(ApiError.ERROR, e.getLocalizedMessage());
         } finally {
-            lock.unlock();
-        }
-    }
-
-    private Lock lockCardInfo(String encryptedCardInfo) throws ApiException {
-        Lock lock = lockRegistry.obtain(encryptedCardInfo);
-
-        if (lock.tryLock()) {
-            return lock;
-        } else {
-            throw new ApiException(ApiError.CARD_LOCKED);
+            lockerUtil.unlock();
         }
     }
 }

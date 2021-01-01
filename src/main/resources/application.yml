@@ -30,6 +30,9 @@ spring:
     url: jdbc:h2:mem:test
     username: sa
     password:
+  redis:
+    port: 6379
+    host: localhost
   jackson:
     property-naming-strategy: LOWER_CAMEL_CASE
   http:
