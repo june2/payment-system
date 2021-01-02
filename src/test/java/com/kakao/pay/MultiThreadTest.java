@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class MultiThreadTest extends CommonTestCase {
     @Test
-    public void 같은카드로_동시에_결제() {
+    public void 하나의_카드번호로_동시에_결제() {
         ApplyPaymentRequest applyPaymentRequest = ApplyPaymentRequest
                 .builder()
                 .card(defaultCardRequest())
@@ -43,14 +43,14 @@ public class MultiThreadTest extends CommonTestCase {
         };
 
         CompletableFuture
-                .allOf(CompletableFuture.runAsync(worker), CompletableFuture.runAsync(worker))
+                .allOf(CompletableFuture.runAsync(worker), CompletableFuture.runAsync(worker), CompletableFuture.runAsync(worker))
                 .join();
 
-        Assert.assertTrue(!errors.isEmpty());
+        Assert.assertEquals(errors.size(), 2);
     }
 
     @Test
-    public void 동일거래로_동시에_거래취소() throws Throwable {
+    public void  동일거래로_동시에_전체_부분_취소() throws Throwable {
         ApplyPaymentResponse paymentResponse = (ApplyPaymentResponse) doApply(
                 new ApplyPaymentRequest(defaultCardRequest(), 0, 11000L, 1000L),
                 status().isOk()
@@ -81,10 +81,10 @@ public class MultiThreadTest extends CommonTestCase {
             };
 
             CompletableFuture
-                    .allOf(CompletableFuture.runAsync(worker), CompletableFuture.runAsync(worker))
+                    .allOf(CompletableFuture.runAsync(worker), CompletableFuture.runAsync(worker), CompletableFuture.runAsync(worker))
                     .join();
 
-            Assert.assertTrue(!errors.isEmpty());
+            Assert.assertEquals(errors.size(), 2);
         }
     }
 }

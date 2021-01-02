@@ -7,10 +7,12 @@
   - spring-boot-data-jpa
   - spring-boot-data-rest 
   - spring-boot-starter-integration
-  - spring-integration-jdbc 
+  - spring-integration-redis
 - h2database
+- redis
 - modelmapper
 - Lombok
+
 
 
 ### Build && Run
@@ -154,5 +156,8 @@ VAT_GREATER_THAN_PRICE(07, "VAT가 금액보다 더 큽니다.");
   - 결제 : 하나의 카드번호로 동시에 결제를 할 수 없습니다.
   - 전체취소 : 결제 한 건에 대한 전체취소를 동시에 할 수 없습니다.
   - 부분취소 : 결제 한 건에 대한 부분취소를 동시에 할 수 없습니다.
+- 해결 방안
+  - spring-integration-redis
+  - redis에 카드 정보키를 저장하여 분산락 설정, 동시 처리 제약 처리
 - `MultiThreadTest.java` 
 

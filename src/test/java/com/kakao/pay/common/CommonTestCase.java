@@ -53,7 +53,7 @@ public class CommonTestCase {
     private MockMvc mockMvc;
 
     protected CardRequest defaultCardRequest() {
-        return new CardRequest("1234567890", "0120", "123");
+        return new CardRequest("1234567890", "3001", "123");
     }
 
     protected ApplyPaymentRequest defaultApplyRequest() {
@@ -61,11 +61,11 @@ public class CommonTestCase {
     }
 
     protected CancelPaymentRequest defaultCancelRequest() {
-        return new CancelPaymentRequest("wyFzgSLlDBUPKglu1umh", 11000L, 1000L);
+        return new CancelPaymentRequest("", 11000L, 1000L);
     }
 
     protected SearchPaymentRequest defaultSearchRequest() {
-        return new SearchPaymentRequest("wyFzgSLlDBUPKglu1umh");
+        return new SearchPaymentRequest("");
     }
 
     protected void assertSearchSuccess(SearchPaymentRequest request, Long price, Long vat) throws Throwable {
