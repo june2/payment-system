@@ -45,7 +45,7 @@ $ ./gradlew bootRun
   - DATA: 카드사에 전송하는 내역저장(공통헤더부문 + 데이터부문)
 
 ### ERD
-![image](https://user-images.githubusercontent.com/5827617/103437829-8ddbb880-4c6f-11eb-8cec-caf49481dd0d.png)
+![image](https://user-images.githubusercontent.com/5827617/103494723-60635a80-4e7b-11eb-9055-e826c7a48c02.png)
 
 ## API SPEC
 
