@@ -23,6 +23,20 @@ $ ./gradlew bootRun
 ```
 
 ---
+### 체크 리스트
+- [x] 모델 정의하기
+- [x] H2 DB 연동 (in memory)
+- [x] API 기능구현 
+- [x] 시스템 정책
+   - [x] string data 명세 
+   - [x] 부가가치세
+   - [x] 카드정보 암/복호
+   - [x] 트랜잭션 데이터관
+- [x] 테스트 
+   - [x] api 테스트
+   - [x] 시나리오 테스트
+   - [x] 멀티스레드 테스트  
+---
 
 ## DB 설계 
 
@@ -51,7 +65,7 @@ $ ./gradlew bootRun
 
 ### 결제 API
 * 카드정보과 금액정보를 입력받아서 카드사와 협의된 string 데이터로 DB에 저장합니다.<br/>
-* `POST /api/payment/v1/apply<br/>`
+* `POST /api/payment/v1/apply`
 * request
 ```json
 {
@@ -75,7 +89,7 @@ $ ./gradlew bootRun
 
 ### 취소 API
 * 결제에 대한 전체취소는 1번만 가능합니다. 부가가치세 정보를 넘기지 않는 경우, 결제데이터의 부가가치세 금액으로 취소합니다. 할부개월수 데이터는 00(일시불)로 저장합니다.<br/>
-* `POST /api/payment/v1/cancel<br/>`
+* `POST /api/payment/v1/cancel`
 * request
 ```json
 {
@@ -94,11 +108,11 @@ $ ./gradlew bootRun
 
 ### 조회 API
 * DB에 저장된 데이터를 조회해서 응답값으로 만들어줍니다.<br/>
-* `POST /api/payment/v1/search<br/>`
+* `POST /api/payment/v1/search`
 * request
 ```json
 {
-  "id": "[관리번호(unique id, 20자리)]",
+  "id": "[관리번호(unique id, 20자리)]"
 }
 ```
 * response
