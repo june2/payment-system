@@ -49,6 +49,7 @@ public class ApplyPaymentService {
     public ApplyPaymentResponse doWork(ApplyPaymentRequest request) throws ApiException {
         String encryptedCardInfo = cardService.encrypt(request.getCard());
 
+        // 암호화된 카드정보를 레디스에 저장하여 락처리 (중복 처리방지)
         if (!lockerUtil.lock(encryptedCardInfo).tryLock()) {
             throw new ApiException(ApiError.CARD_LOCKED);
         }

@@ -12,7 +12,7 @@ public class SendService {
     private PayloadRepository payloadRepository;
 
     public Payload send(String id, String data) {
-        // send the data to PG
+        // 카드사 정보 전송후, DB저장
         return payloadRepository.save(
                 Payload.builder().id(id).data(data).build());
     }

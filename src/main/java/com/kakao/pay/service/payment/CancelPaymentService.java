@@ -46,6 +46,7 @@ public class CancelPaymentService {
     @Transactional
     public CancelPaymentResponse doWork(CancelPaymentRequest request) throws ApiException {
 
+        // 결제아이디를 레디스에 저장하여 락처리 (중복 처리방지)
         if (!lockerUtil.lock(request.getPaymentId()).tryLock()) {
             throw new ApiException(ApiError.PAYMENT_LOCKED);
         }

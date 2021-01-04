@@ -56,8 +56,8 @@ public class SearchPaymentService {
                     .id(payment.getId())
                     .cardInfo(modelMapper.map(cardInfo, MaskedCardInfo.class))
                     .paymentType(payment.getType())
-                    .price(payment.getRemainingPrice())
-                    .vat(payment.getRemainingVat())
+                    .price(payment.getRemainingPrice()) // 취소되고 남은 금액 계산
+                    .vat(payment.getRemainingVat()) // 취소되고 남은 부가세 계산
                     .month(payment.getMonth())
                     .optional(payment.getCancelList())
                     .build();
