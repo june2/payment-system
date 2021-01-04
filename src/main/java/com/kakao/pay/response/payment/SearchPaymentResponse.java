@@ -1,12 +1,16 @@
 package com.kakao.pay.response.payment;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.kakao.pay.model.card.MaskedCardInfo;
 import com.kakao.pay.constant.PaymentType;
+import com.kakao.pay.model.card.MaskedCardInfo;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class SearchPaymentResponse {
     private String id;
 
@@ -18,17 +22,7 @@ public class SearchPaymentResponse {
 
     private Long vat;
 
-    @Builder
-    public SearchPaymentResponse(String id, MaskedCardInfo cardInfo, PaymentType paymentType, Long price, Long vat) {
-        this.id = id;
-        this.cardInfo = cardInfo;
-        this.paymentType = paymentType;
-        this.price = price;
-        this.vat = vat;
-    }
+    private String month;
 
-    @JsonCreator
-    private SearchPaymentResponse() {
-        super();
-    }
+    private Object optional;
 }

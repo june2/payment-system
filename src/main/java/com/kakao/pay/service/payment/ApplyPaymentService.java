@@ -58,6 +58,7 @@ public class ApplyPaymentService {
             applyPayment.setId(randomId.call());
             applyPayment.setVat(CardUtil.getVat(request));
             applyPayment.setEncryptedCardInfo(encryptedCardInfo);
+            applyPayment.setMonth(request.getMonth());
             applyPayment = applyPaymentRepository.save(applyPayment);
 
             CardRequest cardRequest = request.getCard();
@@ -65,7 +66,7 @@ public class ApplyPaymentService {
                     .builder()
                     .id(applyPayment.getId())
                     .type(PaymentType.PAYMENT)
-                    .paymentMonths(request.getMonths())
+                    .paymentMonth(request.getMonth())
                     .paymentPrice(request.getPrice())
                     .encryptedCardInfo(encryptedCardInfo)
                     .vat(request.getVat())

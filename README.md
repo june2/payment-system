@@ -36,6 +36,14 @@ $ ./gradlew bootRun
   - 관리번호(unique id, 20자리)로 저장되어 있는 데이터를 조회.
   - 관리번호로 데이터 조회시에는 결제 혹은 결제취소 데이터 1건만 조회.
 
+### 설계 설명
+- PAYMENT 
+  - 결제 정보 테이블
+  - TYPE:PAYMENT 데이터와 TYPE:CANCEL 데이터 1:N 관계
+- PAYLOAD
+  - 카드사 전송 정보 테이블
+  - DATA: 카드사에 전송하는 내역저장(공통헤더부문 + 데이터부문)
+
 ### ERD
 ![image](https://user-images.githubusercontent.com/5827617/103437829-8ddbb880-4c6f-11eb-8cec-caf49481dd0d.png)
 
@@ -43,7 +51,7 @@ $ ./gradlew bootRun
 
 ### 결제 API
 * 카드정보과 금액정보를 입력받아서 카드사와 협의된 string 데이터로 DB에 저장합니다.<br/>
-* POST /api/payment/v1/apply<br/>
+* `POST /api/payment/v1/apply<br/>`
 * request
 ```json
 {
@@ -54,7 +62,7 @@ $ ./gradlew bootRun
     "expiryDate": "[유효기간(4자리 숫자, mmyy)]",
     "verificationCode": "[cvc(3자리 숫자)]"
   },
-  "months": "[할부개월수 : 0(일시불), 1 ~ 12]"
+  "month": "[할부개월수 : 0(일시불), 1 ~ 12]"
 }
 ```
 * response
@@ -67,7 +75,7 @@ $ ./gradlew bootRun
 
 ### 취소 API
 * 결제에 대한 전체취소는 1번만 가능합니다. 부가가치세 정보를 넘기지 않는 경우, 결제데이터의 부가가치세 금액으로 취소합니다. 할부개월수 데이터는 00(일시불)로 저장합니다.<br/>
-* POST /api/payment/v1/cancel<br/>
+* `POST /api/payment/v1/cancel<br/>`
 * request
 ```json
 {
@@ -86,7 +94,7 @@ $ ./gradlew bootRun
 
 ### 조회 API
 * DB에 저장된 데이터를 조회해서 응답값으로 만들어줍니다.<br/>
-* POST /api/payment/v1/search<br/>
+* `POST /api/payment/v1/search<br/>`
 * request
 ```json
 {
@@ -104,7 +112,9 @@ $ ./gradlew bootRun
   },
   "paymentType": "[타입(결제: PAYMENT, 취소: CANCEL)]",
   "price": "[결제/취소 금액 (타입 결제시 : 취소되고 남은 금액 표시, 타입 취소시 : 취소 금액 표시)]",
-  "vat": "[부가가치세 (타입 결제시 : 취소되고 남은 금액 표시, 타입 취소시 : 취소 금액 표시)]"
+  "vat": "[부가가치세 (타입 결제시 : 취소되고 남은 금액 표시, 타입 취소시 : 취소 금액 표시)]",
+  "month": "[할부개월수 : 01~12]",
+  "optional": "타입결제(PAYMENT)이고, 취소 내역이 있으면 취소 내역리스트 추가"
 }
 ```
 ### 오류 코드 

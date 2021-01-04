@@ -19,20 +19,28 @@ public class ApplyPaymentRequest extends PriceRequest {
     @Valid
     private CardRequest card;
 
-    @NotNull(message = "{validation.constraints.paymentMonths.notNull}")
-    @Min(value = 0, message = "{validation.constraints.paymentMonths.min}")
-    @Max(value = 12, message = "{validation.constraints.paymentMonths.max}")
-    private Integer months;
-
-    @Builder
-    public ApplyPaymentRequest(CardRequest card, Integer months, Long price, Long vat) {
-        super(price, vat);
-        this.card = card;
-        this.months = months;
-    }
+    @NotNull(message = "{validation.constraints.paymentMonth.notNull}")
+    @Min(value = 0, message = "{validation.constraints.paymentMonth.min}")
+    @Max(value = 12, message = "{validation.constraints.paymentMonth.max}")
+    private Integer month;
 
     @JsonCreator
     private ApplyPaymentRequest() {
         super();
+    }
+
+    @Builder
+    public ApplyPaymentRequest(CardRequest card, Integer month, Long price, Long vat) {
+        super(price, vat);
+        this.card = card;
+        this.month = month;
+    }
+
+    public String getMonth() {
+        if (month < 10) {
+            return "0" + month;
+        } else {
+            return month.toString();
+        }
     }
 }

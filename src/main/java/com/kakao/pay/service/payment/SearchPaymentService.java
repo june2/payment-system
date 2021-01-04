@@ -58,6 +58,8 @@ public class SearchPaymentService {
                     .paymentType(payment.getType())
                     .price(payment.getRemainingPrice())
                     .vat(payment.getRemainingVat())
+                    .month(payment.getMonth())
+                    .optional(payment.getCancelList())
                     .build();
         }
 

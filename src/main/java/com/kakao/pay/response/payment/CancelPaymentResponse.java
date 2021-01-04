@@ -1,20 +1,14 @@
 package com.kakao.pay.response.payment;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CancelPaymentResponse {
     private String id;
-
-    @Builder
-    public CancelPaymentResponse(String id) {
-        this.id = id;
-    }
-
-    @JsonCreator
-    private CancelPaymentResponse() {
-        super();
-    }
 }

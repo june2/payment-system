@@ -24,6 +24,10 @@ public class ApplyPayment extends Payment {
         return cancelPayments.add(cancelPayment);
     }
 
+    public Collection<CancelPayment> getCancelList() {
+        return cancelPayments;
+    }
+
     public Long getRemainingPrice() {
         Long canceledTotalPrice = cancelPayments
                 .stream()

@@ -21,7 +21,7 @@ public class MultiThreadTest extends CommonTestCase {
         ApplyPaymentRequest applyPaymentRequest = ApplyPaymentRequest
                 .builder()
                 .card(defaultCardRequest())
-                .months(10)
+                .month(10)
                 .price(1000L)
                 .build();
 

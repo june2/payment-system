@@ -18,14 +18,12 @@ import com.kakao.pay.util.LockerUtil;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.integration.support.locks.LockRegistry;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Optional;
 import java.util.concurrent.Callable;
-import java.util.concurrent.locks.Lock;
 
 @Service
 public class CancelPaymentService {
@@ -68,6 +66,7 @@ public class CancelPaymentService {
             cancelPayment.setPrice(request.getPrice());
             cancelPayment.setVat(requireVat);
             cancelPayment.setEncryptedCardInfo(applyPayment.getEncryptedCardInfo());
+            cancelPayment.setMonth("00"); // 취소시, 할부개월수 데이터는 00(일시불)로 저장.
             applyPayment.addCancelPayment(cancelPayment);
             applyPaymentRepository.save(applyPayment);
 
@@ -76,7 +75,7 @@ public class CancelPaymentService {
                     .id(cancelPayment.getId())
                     .type(PaymentType.CANCEL)
                     .paymentId(request.getPaymentId())
-                    .paymentMonths(0)
+                    .paymentMonth("00") // 취소시, 할부개월수 데이터는 00(일시불)로 저장.
                     .paymentPrice(request.getPrice())
                     .encryptedCardInfo(applyPayment.getEncryptedCardInfo())
                     .vat(requireVat)

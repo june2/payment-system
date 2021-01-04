@@ -19,21 +19,21 @@ public class ApplyPaymentRequestTest extends CommonTestCase {
     @Test
     public void 할부개월_누락() {
         ApplyPaymentRequest request = defaultApplyRequest();
-        request.setMonths(null);
+        request.setMonth(null);
         assertConstraint(request, NotNull.class);
     }
 
     @Test
     public void 할부개월_범위_미만() {
         ApplyPaymentRequest request = defaultApplyRequest();
-        request.setMonths(-1);
+        request.setMonth(-1);
         assertConstraint(request, Min.class);
     }
 
     @Test
     public void 할부개월_범위_초과() {
         ApplyPaymentRequest request = defaultApplyRequest();
-        request.setMonths(20);
+        request.setMonth(20);
         assertConstraint(request, Max.class);
     }
 

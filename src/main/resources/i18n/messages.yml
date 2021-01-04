@@ -2,7 +2,7 @@ validation.constraints:
   cardRequest:
     notNull: 카드정보를 입력해주세요.
 
-  paymentMonths:
+  paymentMonth:
     notNull: 할부개월을 입력해주세요.
     min: 할부개월은 {value} 이상으로 입력해주세요.
     max: 할부개월은 {value} 이하로 입력해주세요.

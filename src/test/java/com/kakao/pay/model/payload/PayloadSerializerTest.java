@@ -33,7 +33,7 @@ public class PayloadSerializerTest extends CommonTestCase {
                 .builder()
                 .id(randomId.call())
                 .type(PaymentType.PAYMENT)
-                .paymentMonths(request.getMonths())
+                .paymentMonth(request.getMonth())
                 .paymentPrice(request.getPrice())
                 .encryptedCardInfo(encryptedCardInfo)
                 .vat(request.getVat())

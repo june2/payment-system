@@ -17,7 +17,7 @@ public class Payload {
     private String cardNumber;
 
     @PayloadField(formatter = PayloadFormatter.NUMBER_0, start = 50, length = 2)
-    private Integer paymentMonths;
+    private String paymentMonth;
 
     @PayloadField(formatter = PayloadFormatter.NUMBER_L, start = 52, length = 4)
     private String cardExpiryDate;

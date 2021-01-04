@@ -22,6 +22,9 @@ public class Payment {
     @Column(nullable = false)
     private Long vat;
 
+    @Column(nullable = false)
+    private String month;
+
     @Column
     private String encryptedCardInfo;
 

@@ -39,7 +39,7 @@ public class PaymentTest extends CommonTestCase {
     }
 
     @Test
-    public void 전체취소_이후_다시취소_불가능() throws Throwable {
+    public void 결제에_대한_전체취소는_1번만_가능() throws Throwable {
         ApplyPaymentResponse paymentResponse = (ApplyPaymentResponse) doApply(
                 new ApplyPaymentRequest(defaultCardRequest(), 0, 11000L, 1000L),
                 status().isOk()
